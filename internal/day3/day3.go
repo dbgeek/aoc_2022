@@ -46,27 +46,25 @@ func Day3_2(input string) float64 {
 
 	items := []rune{}
 
-	for i := range parsed {
-		if i%3 == 0 {
-			set := make(map[rune]bool)
-			row1 := parsed[i+2]
-			row2 := parsed[i+1]
-			row3 := parsed[i]
+	for i := 0; i < len(parsed); i += 3 {
+		set := make(map[rune]bool)
+		row1 := parsed[i+2]
+		row2 := parsed[i+1]
+		row3 := parsed[i]
 
-			for _, x := range row1 {
-				if set[x] {
-					continue
-				}
-				for _, y := range row2 {
-					if x == y && !set[x] {
-						for _, z := range row3 {
-							if y == z {
-								set[z] = true
-                items = append(items, z)
-								break
-							}
+		for _, x := range row1 {
+			if set[x] {
+				continue
+			}
+			for _, y := range row2 {
+				if x == y && !set[x] {
+					for _, z := range row3 {
+						if y == z {
+							items = append(items, z)
+							break
 						}
 					}
+					set[y] = true
 				}
 			}
 		}
